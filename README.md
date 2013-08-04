@@ -1,4 +1,6 @@
-JBrowser
+﻿JBrowser
 ========
 
-Implementación de un browser por medio de Sockets en Java. 
+
+
+Implementation of a browser using Java Sockets. 
