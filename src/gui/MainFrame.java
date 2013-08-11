@@ -5,13 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 /**
@@ -29,6 +32,7 @@ public class MainFrame extends JFrame{
     public MainFrame(){
     
         //----Title Bar
+        
         super("JBrowser");
         ImageIcon imgIcon = new ImageIcon ("src/images/browser_icon.png");
         this.setIconImage(imgIcon.getImage());
@@ -38,7 +42,7 @@ public class MainFrame extends JFrame{
         //Main panel      
         panelHeader = new JPanel();
         panelHeader.setLayout(new FlowLayout(FlowLayout.LEADING));
-        panelHeader.setBackground(new Color(179,227,3));
+        panelHeader.setBackground(new Color(0,0,0));//179,227,3
         
         //Left arrow
         btnLeftArrow = new JButton();
@@ -47,6 +51,8 @@ public class MainFrame extends JFrame{
         btnLeftArrow.setContentAreaFilled(false);
         btnLeftArrow.setBorderPainted(false);
         btnLeftArrow.setFocusPainted(false);
+        btnLeftArrow.setEnabled(false);
+        btnLeftArrow.addMouseListener(new BorderButton());
         
         //Right arrow
         btnRightArrow = new JButton(); 
@@ -55,10 +61,11 @@ public class MainFrame extends JFrame{
         btnRightArrow.setContentAreaFilled(false);
         btnRightArrow.setBorderPainted(false);
         btnRightArrow.setFocusPainted(false);
-      
+        btnRightArrow.setEnabled(false);
+        btnRightArrow.addMouseListener(new BorderButton());
+        
         //URL box
-        txtUrl = new JTextField(45);
-        txtUrl.setPreferredSize(new Dimension(80,30));
+        txtUrl = new JTextField(35);
         Font fontUrl = new Font("Verdana", Font.BOLD, 15);
         txtUrl.setFont(fontUrl);
        
@@ -68,6 +75,7 @@ public class MainFrame extends JFrame{
         btnRefreshPage.setContentAreaFilled(false);
         btnRefreshPage.setBorderPainted(false);
         btnRefreshPage.setFocusPainted(false);
+        btnRefreshPage.addMouseListener(new BorderButton());
         
         //Home page
         btnHomePage = new JButton(); 
@@ -76,6 +84,7 @@ public class MainFrame extends JFrame{
         btnHomePage.setContentAreaFilled(false);
         btnHomePage.setBorderPainted(false);
         btnHomePage.setFocusPainted(false);
+        btnHomePage.addMouseListener(new BorderButton());
         
         //Settings
         btnSetting = new JButton(); 
@@ -83,6 +92,8 @@ public class MainFrame extends JFrame{
         btnSetting.setIcon(new ImageIcon ("src/images/settings.png"));
         btnSetting.setContentAreaFilled(false);
         btnSetting.setBorderPainted(false);
+        btnSetting.setFocusPainted(false);
+        btnSetting.addMouseListener(new BorderButton());
         
         //Adds components
         panelHeader.add(btnLeftArrow);
@@ -97,29 +108,22 @@ public class MainFrame extends JFrame{
         //----Content
         //Main panel
         panelContent = new JPanel();
-        panelContent.setLayout( new FlowLayout(FlowLayout.LEFT));
-        panelContent.setBackground(new Color(251,251,176));
+        panelContent.setLayout( new GridLayout(1,1));
+        panelContent.setBackground(new Color(243,201,120));
         
-//        //Tabs
-//        JPanel panel = new JPanel();
-//        panel.setLayout( new FlowLayout(FlowLayout.RIGHT));
-//        panel.setBackground(new Color(79,27,3));
-//        panel.setPreferredSize(new Dimension(1074, 768));
-//        
-//        JTabbedPane page = new JTabbedPane();
-//        page.addTab("Facebook", null, panel, "Does nothing");
-//        page.addTab("Gmail", null, new JPanel(), "Does nothing");
-//        
-//        //Adds components
-//        panelContent.add(page);
+        //TabPanel
+        TabPanel panelTabs = new TabPanel();
+        
+        //Adds components
+        panelContent.add(panelTabs);
         this.add(panelContent, BorderLayout.CENTER);
-        
+       
         
         //----Footer
         //Main panel
         panelFooter = new JPanel();
         panelFooter.setLayout( new FlowLayout(FlowLayout.RIGHT));
-        panelFooter.setBackground(new Color(179,227,3));
+        panelFooter.setBackground(new Color(0,0,0));
         
         //Estado
         lblEstado = new JLabel("Estado : ___________");
@@ -133,13 +137,56 @@ public class MainFrame extends JFrame{
         //----Settings
         this.setSize(1074, 768);
         this.setLocationRelativeTo(null);
+        this.setMinimumSize(new Dimension(890, 200));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
-    //----Getters and Setters
+    //----BorderButton action
+    class BorderButton extends MouseAdapter{
+        
+	public void mouseEntered(MouseEvent evt) {
+            JButton btn = (JButton) evt.getSource();
+            if(btn.isEnabled()){
+                btn.setBorderPainted(true);
+            }  
+        }
+
+        public void mouseExited(MouseEvent evt) {
+            JButton btn = (JButton) evt.getSource();
+            if(btn.isEnabled()){
+                btn.setBorderPainted(false);
+            } 
+        }
+    }
     
+    
+    //----Getters and Setters
+    public JPanel getPanelHeader() {
+        return panelHeader;
+    }
+
+    public void setPanelHeader(JPanel panelHeader) {
+        this.panelHeader = panelHeader;
+    }
+
+    public JPanel getPanelContent() {
+        return panelContent;
+    }
+
+    public void setPanelContent(JPanel panelContent) {
+        this.panelContent = panelContent;
+    }
+
+    public JPanel getPanelFooter() {
+        return panelFooter;
+    }
+
+    public void setPanelFooter(JPanel panelFooter) {
+        this.panelFooter = panelFooter;
+    }
+
     public JButton getBtnLeftArrow() {
         return btnLeftArrow;
     }

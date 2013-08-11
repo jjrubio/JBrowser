@@ -15,5 +15,6 @@ public class JBrowser {
         // TODO code application logic here
         
         MainFrame browser = new MainFrame();
+   
     }
 }
