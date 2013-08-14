@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 /**
@@ -41,15 +40,10 @@ public class TabPanel extends JTabbedPane{
      * Add a new tab with an empty page
      *
      * @author Ramón Carrillo <racarrillo91@gmail.com>
+     * @author Sanny Florencia <sbflorenc@gmail.com>
      */
     private void addNewTab() {
-        // TODO create empty page
-        String html = "<html><body><p>it works!</p></body></html>";
-        JEditorPane page;
-        page = new JEditorPane();
-        page.setEditable(false);
-        page.setContentType("text/html");
-        page.setText(html);
+        PageView page = new PageView();
 
         int index = getTabCount() - 1;
 
