@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 /**
@@ -10,7 +12,8 @@ import javax.swing.JTabbedPane;
  */
 public class TabPanel extends JTabbedPane{
 
-    JLabel newTab;
+//    JLabel newTab;
+    private JButton newTab;
     
     /**
      * Add empty tab and "+" tab
@@ -20,10 +23,15 @@ public class TabPanel extends JTabbedPane{
      */
     public TabPanel(){
 
-        this.setUI(new PPTTabbedPaneUI());
+        setUI(new PPTTabbedPaneUI());
+        setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         
-        newTab = new JLabel("+");
-        addTab("+", null);
+        newTab = new JButton("+");
+        newTab.setForeground(Color.white);
+        newTab.setContentAreaFilled(false);
+        newTab.setBorderPainted(false);
+        newTab.setFocusPainted(false);
+        addTab("", null);
         setTabComponentAt(0, newTab);
         getTabComponentAt(0).addMouseListener(new MouseAdapter() {
 
@@ -32,6 +40,17 @@ public class TabPanel extends JTabbedPane{
                 addNewTab();
             }
         });
+        
+//        newTab = new JLabel("+");
+//        addTab("+", null);
+//        setTabComponentAt(0, newTab);
+//        getTabComponentAt(0).addMouseListener(new MouseAdapter() {
+//
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                addNewTab();
+//            }
+//        });
 
         addNewTab();
     }
@@ -52,4 +71,13 @@ public class TabPanel extends JTabbedPane{
         ButtonTabComponent btnTab = new ButtonTabComponent("New Tab", this);
         setTabComponentAt(index, btnTab);
     }
+
+    public JButton getNewTab() {
+        return newTab;
+    }
+
+    public void setNewTab(JButton newTab) {
+        this.newTab = newTab;
+    }
+
 }
