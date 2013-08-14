@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * @author Sanny Florencia <sbflorenc@gmail.com>
  */
 public class Page {
-	private ArrayList<String> history= new ArrayList<String>();
+	private ArrayList<String> history = new ArrayList<String>();
 	private int currentPage;
 	
 	private Http http;
 	private String url;
+	private String content;
 	
 	public Page( String url ) {
 		setUrl( url );
@@ -25,22 +26,28 @@ public class Page {
 	public  String getUrl() {
 		return url;
 	}
+
+	public String getContent() {
+		return content;
+	}
 	
 	public void setCurrentPage() {
-		this.currentPage = history.size();
+		currentPage = history.size();
 	}
 	
 	public  int getCurrentPage() {
-		return this.currentPage;
+		return currentPage;
 	}
 	
 	public boolean go() throws IOException {
-		load();
 		
 		//If the url is correct add to history 
-		history.add( getUrl() );
+		if( load() ){
+			history.add( getUrl() );
+			return true;
+		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean load() throws IOException {
@@ -51,28 +58,29 @@ public class Page {
 		*	else show an error message
 		*/
 		
-		
-		/*if ( http.request() ){
-			if ( http.getStatus() )
-				http.getContent();
+		if ( http.request() ){
+			System.out.println("" + http.getStatus());
+			//if ( http.getStatus() >= 200 && http.getStatus() <= 208 )
+				content = http.getContent();
 		} else {
 			return false;
-		}*/
-		
+		}
 		
 		return true;
 	} 
 	
 	public boolean back() throws IOException {
 		// Set url - history 
-		setUrl( history.get( getCurrentPage() -1 ) );
+		currentPage = getCurrentPage() -1;
+		setUrl( history.get( currentPage ) );
 		load();
 		
 		return true;
 	}
 	
 	public boolean forward() throws IOException {
-		setUrl( history.get( getCurrentPage() + 1 ) );
+		currentPage = getCurrentPage() -1;
+		setUrl( history.get( currentPage ) );
 		load();
 		
 		return true;
