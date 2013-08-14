@@ -39,7 +39,7 @@ public class Page {
 		return currentPage;
 	}
 	
-	public boolean go() throws IOException {
+	public boolean go() {
 		
 		//If the url is correct add to history 
 		if( load() ){
@@ -50,7 +50,7 @@ public class Page {
 		return false;
 	}
 	
-	public boolean load() throws IOException {
+	public boolean load() {
 		http = new Http( getUrl() );
 		
 		/* Call function to create socket connection request()
@@ -69,7 +69,7 @@ public class Page {
 		return true;
 	} 
 	
-	public boolean back() throws IOException {
+	public boolean back() {
 		// Set url - history 
 		currentPage = getCurrentPage() -1;
 		setUrl( history.get( currentPage ) );
@@ -78,7 +78,7 @@ public class Page {
 		return true;
 	}
 	
-	public boolean forward() throws IOException {
+	public boolean forward() {
 		currentPage = getCurrentPage() -1;
 		setUrl( history.get( currentPage ) );
 		load();
@@ -86,7 +86,7 @@ public class Page {
 		return true;
 	}
 
-	public boolean reload() throws IOException {
+	public boolean reload() {
 		load();
 		
 		return true;

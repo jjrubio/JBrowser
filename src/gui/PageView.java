@@ -22,24 +22,20 @@ public class PageView extends JEditorPane {
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (HyperlinkEvent.EventType.ACTIVATED == e.getEventType()) {
-					try {
-						go( e.getURL().toString() );
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					go( e.getURL().toString() );
 				}
 			}
 		});
 	}
 	
-	public void go(String url) throws IOException{
+	public void go(String url) {
 		page = new Page(url);
 		if (page.go()) {
 			setText(page.getContent());
 		}
 	}
 	
-	public void reload() throws IOException{
+	public void reload() {
 		page.reload();
 	}
 	
@@ -47,11 +43,11 @@ public class PageView extends JEditorPane {
 		// TODO
 	}
 	
-	public void back() throws IOException{
+	public void back() {
 		page.back();
 	}
 	
-	public void forward() throws IOException{
+	public void forward() {
 		page.forward();
 	}
 
