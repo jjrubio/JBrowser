@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +34,7 @@ public class MainFrame extends JFrame{
         
         super("JBrowser");
         ImageIcon imgIcon = new ImageIcon ("src/images/browser_icon.png");
-        this.setIconImage(imgIcon.getImage());
+        setIconImage(imgIcon.getImage());
 
         
         //----Header
@@ -102,7 +101,7 @@ public class MainFrame extends JFrame{
         panelHeader.add(btnRefreshPage);
         panelHeader.add(btnHomePage);
         panelHeader.add(btnSetting);
-        this.add(panelHeader, BorderLayout.NORTH);
+        add(panelHeader, BorderLayout.NORTH);
         
         
         //----Content
@@ -116,7 +115,7 @@ public class MainFrame extends JFrame{
         
         //Adds components
         panelContent.add(panelTabs);
-        this.add(panelContent, BorderLayout.CENTER);
+        add(panelContent, BorderLayout.CENTER);
        
         
         //----Footer
@@ -131,16 +130,16 @@ public class MainFrame extends JFrame{
         
         //Adds components
         panelFooter.add(lblEstado);
-        this.add(panelFooter, BorderLayout.SOUTH);
+        add(panelFooter, BorderLayout.SOUTH);
         
         
         //----Settings
-        this.setSize(1074, 768);
-        this.setLocationRelativeTo(null);
-        this.setMinimumSize(new Dimension(890, 200));
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
+        setSize(1074, 768);
+        setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(890, 200));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     //----BorderButton action
