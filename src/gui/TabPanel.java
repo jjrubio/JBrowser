@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 /**
  *
@@ -12,7 +11,6 @@ import javax.swing.JTabbedPane;
  */
 public class TabPanel extends JTabbedPane{
 
-//    JLabel newTab;
     private JButton newTab;
     
     /**
@@ -40,18 +38,6 @@ public class TabPanel extends JTabbedPane{
                 addNewTab();
             }
         });
-        
-//        newTab = new JLabel("+");
-//        addTab("+", null);
-//        setTabComponentAt(0, newTab);
-//        getTabComponentAt(0).addMouseListener(new MouseAdapter() {
-//
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                addNewTab();
-//            }
-//        });
-
         addNewTab();
     }
 
@@ -63,9 +49,9 @@ public class TabPanel extends JTabbedPane{
      */
     private void addNewTab() {
         PageView page = new PageView();
-
+        
         int index = getTabCount() - 1;
-
+        
         insertTab("", null, page, "", index);
 
         ButtonTabComponent btnTab = new ButtonTabComponent("New Tab", this);

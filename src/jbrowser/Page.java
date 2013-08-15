@@ -32,6 +32,14 @@ public class Page {
 	public  int getCurrentPage() {
 		return currentPage;
 	}
+
+        public Http getHttp() {
+            return http;
+        }
+
+        public void setHttp(Http http) {
+            this.http = http;
+        }
 	
 	public boolean go( String url ) {
 		//If the url is correct add to history 

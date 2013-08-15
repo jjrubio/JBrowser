@@ -16,7 +16,9 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
 
 /**
  *
@@ -27,8 +29,8 @@ public class MainFrame extends JFrame{
     private JPanel panelHeader, panelContent, panelFooter;
     private JButton btnLeftArrow, btnRightArrow, btnRefreshPage, btnHomePage, btnSetting;
     private JTextField txtUrl;
-    private JLabel lblEstado;
-	private TabPanel tabs;
+    private TabPanel tabs;
+    private JLabel lblStatusTitle, lblStatusValue;
     
     //Constructor
     public MainFrame(){
@@ -99,7 +101,14 @@ public class MainFrame extends JFrame{
         btnRefreshPage.setBorderPainted(false);
         btnRefreshPage.setFocusPainted(false);
         btnRefreshPage.addMouseListener(new BorderButton());
-        
+        btnRefreshPage.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				( (PageView)tabs.getSelectedComponent() ).reload();
+			}
+		});
+		
         //Home page
         btnHomePage = new JButton(); 
         btnHomePage.setIcon(new ImageIcon ("src/images/home.png"));
@@ -148,15 +157,18 @@ public class MainFrame extends JFrame{
         panelFooter.setLayout( new FlowLayout(FlowLayout.RIGHT));
         panelFooter.setBackground(new Color(0,0,0));
         
-        //Estado
-        lblEstado = new JLabel("Estado : ___________");
+        //Page Status
+        lblStatusTitle = new JLabel("Page Status: ");
+        lblStatusTitle.setForeground(new Color(243,201,120));
+        lblStatusValue = new JLabel("No access");
+        lblStatusValue.setForeground(Color.white);
         
         
         //Adds components
-        panelFooter.add(lblEstado);
+        panelFooter.add(lblStatusTitle);
+        panelFooter.add(lblStatusValue);
         add(panelFooter, BorderLayout.SOUTH);
-        
-        
+                        
         //----Settings
         setSize(1074, 768);
         setLocationRelativeTo(null);
@@ -166,6 +178,10 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
+   
+    
+    
+    
     //----BorderButton action
     class BorderButton extends MouseAdapter{
         

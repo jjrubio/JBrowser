@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import jbrowser.Page;
@@ -9,15 +10,22 @@ import jbrowser.Page;
  *
  * @author Sanny Florencia <sbflorenc@gmail.com>
  */
-public class PageView extends JEditorPane {
+public class PageView extends JScrollPane {
 	
 	private Page page;
+	private JEditorPane editor;
 	
 	public PageView() {
 		page = new Page();
-		setEditable(false);
-        setContentType("text/html;charset=UTF-8");
-		addHyperlinkListener( new HyperlinkListener() {
+		
+		editor = new JEditorPane();
+		editor.setEditable(false);
+        editor.setContentType("text/html;charset=UTF-8");	
+		setViewportView(editor);
+		
+		setAutoscrolls(true);
+		
+		editor.addHyperlinkListener( new HyperlinkListener() {
 
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
@@ -30,7 +38,7 @@ public class PageView extends JEditorPane {
 	
 	public void go(String url) {
 		if (page.go(url)) {
-			setText(page.getContent());
+			editor.setText(page.getContent());
 		}
 	}
 	
@@ -44,12 +52,12 @@ public class PageView extends JEditorPane {
 	
 	public void back() {
 		if ( page.back() )
-			setText(page.getContent());
+			editor.setText(page.getContent());
 	}
 	
 	public void forward() {
 		if ( page.forward() )
-			setText(page.getContent());
+			editor.setText(page.getContent());
 	}
-
+     
 }
