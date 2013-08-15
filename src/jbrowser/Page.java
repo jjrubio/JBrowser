@@ -1,6 +1,5 @@
 package jbrowser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,8 +14,7 @@ public class Page {
 	private String url;
 	private String content;
 	
-	public Page( String url ) {
-		setUrl( url );
+	public Page() {
 	}
 	
 	public void setUrl( String url ) {
@@ -31,27 +29,24 @@ public class Page {
 		return content;
 	}
 	
-	public void setCurrentPage() {
-		currentPage = history.size();
-	}
-	
 	public  int getCurrentPage() {
 		return currentPage;
 	}
 	
-	public boolean go() {
-		
+	public boolean go( String url ) {
 		//If the url is correct add to history 
-		if( load() ){
-			history.add( getUrl() );
+		if( load(url) ){
+			history.add(url);
+			currentPage = history.size() - 1;
+			System.out.println(history);
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean load() {
-		http = new Http( getUrl() );
+	private boolean load(String url) {
+		http = new Http(url);
 		
 		/* Call function to create socket connection request()
 		*	if it returns - http status 200 - call getContent function
@@ -71,23 +66,21 @@ public class Page {
 	
 	public boolean back() {
 		// Set url - history 
-		currentPage = getCurrentPage() -1;
-		setUrl( history.get( currentPage ) );
-		load();
+		currentPage = getCurrentPage() - 1;
+		load( history.get( currentPage ) );
 		
 		return true;
 	}
 	
 	public boolean forward() {
-		currentPage = getCurrentPage() -1;
-		setUrl( history.get( currentPage ) );
-		load();
+		currentPage = getCurrentPage() + 1;
+		load( history.get( currentPage ) );
 		
 		return true;
 	}
 
 	public boolean reload() {
-		load();
+		load( history.get(currentPage) );
 		
 		return true;
 	}

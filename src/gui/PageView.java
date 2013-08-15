@@ -1,6 +1,5 @@
 package gui;
 
-import java.io.IOException;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -15,6 +14,7 @@ public class PageView extends JEditorPane {
 	private Page page;
 	
 	public PageView() {
+		page = new Page();
 		setEditable(false);
         setContentType("text/html;charset=UTF-8");
 		addHyperlinkListener( new HyperlinkListener() {
@@ -29,8 +29,7 @@ public class PageView extends JEditorPane {
 	}
 	
 	public void go(String url) {
-		page = new Page(url);
-		if (page.go()) {
+		if (page.go(url)) {
 			setText(page.getContent());
 		}
 	}
@@ -44,11 +43,13 @@ public class PageView extends JEditorPane {
 	}
 	
 	public void back() {
-		page.back();
+		if ( page.back() )
+			setText(page.getContent());
 	}
 	
 	public void forward() {
-		page.forward();
+		if ( page.forward() )
+			setText(page.getContent());
 	}
 
 }

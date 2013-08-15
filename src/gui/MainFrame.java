@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame{
     private JButton btnLeftArrow, btnRightArrow, btnRefreshPage, btnHomePage, btnSetting;
     private JTextField txtUrl;
     private JLabel lblEstado;
+	private TabPanel tabs;
     
     //Constructor
     public MainFrame(){
@@ -50,8 +53,15 @@ public class MainFrame extends JFrame{
         btnLeftArrow.setContentAreaFilled(false);
         btnLeftArrow.setBorderPainted(false);
         btnLeftArrow.setFocusPainted(false);
-        btnLeftArrow.setEnabled(false);
+        btnLeftArrow.setEnabled(true);
         btnLeftArrow.addMouseListener(new BorderButton());
+		btnLeftArrow.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				( (PageView)tabs.getSelectedComponent() ).back();
+			}
+		});
         
         //Right arrow
         btnRightArrow = new JButton(); 
@@ -60,13 +70,27 @@ public class MainFrame extends JFrame{
         btnRightArrow.setContentAreaFilled(false);
         btnRightArrow.setBorderPainted(false);
         btnRightArrow.setFocusPainted(false);
-        btnRightArrow.setEnabled(false);
+        btnRightArrow.setEnabled(true);
         btnRightArrow.addMouseListener(new BorderButton());
+		btnRightArrow.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				( (PageView)tabs.getSelectedComponent() ).forward();
+			}
+		});
         
         //URL box
         txtUrl = new JTextField(35);
         Font fontUrl = new Font("Verdana", Font.BOLD, 15);
         txtUrl.setFont(fontUrl);
+		txtUrl.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
+			}
+		});
        
         //Refresh page
         btnRefreshPage = new JButton(); 
@@ -111,10 +135,10 @@ public class MainFrame extends JFrame{
         panelContent.setBackground(new Color(243,201,120));
         
         //TabPanel
-        TabPanel panelTabs = new TabPanel();
+        tabs = new TabPanel();
         
         //Adds components
-        panelContent.add(panelTabs);
+        panelContent.add(tabs);
         add(panelContent, BorderLayout.CENTER);
        
         
