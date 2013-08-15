@@ -1,6 +1,5 @@
 package gui;
 
-import java.io.IOException;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -15,7 +14,9 @@ public class PageView extends JEditorPane {
 	private Page page;
 	
 	public PageView() {
-		setEditable(false);
+        setEditable(false);
+        setAutoscrolls(true);
+//        set
         setContentType("text/html;charset=UTF-8");
 		addHyperlinkListener( new HyperlinkListener() {
 
@@ -50,5 +51,7 @@ public class PageView extends JEditorPane {
 	public void forward() {
 		page.forward();
 	}
-
+        
+        
+    
 }

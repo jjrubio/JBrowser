@@ -1,6 +1,5 @@
 package jbrowser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +37,14 @@ public class Page {
 	public  int getCurrentPage() {
 		return currentPage;
 	}
+
+        public Http getHttp() {
+            return http;
+        }
+
+        public void setHttp(Http http) {
+            this.http = http;
+        }
 	
 	public boolean go() {
 		
