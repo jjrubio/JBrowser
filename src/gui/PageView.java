@@ -65,4 +65,12 @@ public class PageView extends JScrollPane {
 	public String getUrl() {
 		return url;
 	}
+	
+	public int getHistorySize(){
+		return page.getHistorySize();
+	}
+	
+	public int getCurrentPage(){
+		return page.getCurrentPage();
+	}
 }
