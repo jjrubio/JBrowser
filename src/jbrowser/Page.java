@@ -32,6 +32,10 @@ public class Page {
 	public  int getCurrentPage() {
 		return currentPage;
 	}
+	
+	public int getHistorySize(){
+		return history.size();
+	}
 
         public Http getHttp() {
             return http;
