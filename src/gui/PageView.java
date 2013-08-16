@@ -14,6 +14,7 @@ public class PageView extends JScrollPane {
 	
 	private Page page;
 	private JEditorPane editor;
+	private String url;
 	
 	public PageView() {
 		page = new Page();
@@ -39,6 +40,7 @@ public class PageView extends JScrollPane {
 	public void go(String url) {
 		if (page.go(url)) {
 			editor.setText(page.getContent());
+			this.url = url;
 		}
 	}
 	
@@ -60,4 +62,7 @@ public class PageView extends JScrollPane {
 			editor.setText(page.getContent());
 	}
      
+	public String getUrl() {
+		return url;
+	}
 }

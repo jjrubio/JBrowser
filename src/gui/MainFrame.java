@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -145,7 +147,16 @@ public class MainFrame extends JFrame{
         
         //TabPanel
         tabs = new TabPanel();
-        
+        tabs.addChangeListener( new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent ce) {
+				PageView page = (PageView) tabs.getSelectedComponent();
+				System.out.println(page.getUrl());
+				txtUrl.setText(page.getUrl());
+			}
+		} );
+		
         //Adds components
         panelContent.add(tabs);
         add(panelContent, BorderLayout.CENTER);
