@@ -93,6 +93,7 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
+//                                ( (PageView)tabs.getSelectedComponent() ).;
 			}
 		});
        
@@ -119,6 +120,12 @@ public class MainFrame extends JFrame{
         btnHomePage.setBorderPainted(false);
         btnHomePage.setFocusPainted(false);
         btnHomePage.addMouseListener(new BorderButton());
+        btnHomePage.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");			}
+		});
         
         //Settings
         btnSetting = new JButton(); 
