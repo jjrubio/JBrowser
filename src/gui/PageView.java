@@ -21,7 +21,7 @@ public class PageView extends JScrollPane {
 		
 		editor = new JEditorPane();
 		editor.setEditable(false);
-                editor.setContentType( page.getContentType() );	
+                editor.setContentType( "txt/html;charset=UTF-8" );	
 		setViewportView(editor);
 		
 		setAutoscrolls(true);
@@ -39,6 +39,11 @@ public class PageView extends JScrollPane {
 	
 	public void go(String url) {
 		if (page.go(url)) {
+			if( page.getContentType() == null)
+				editor.setContentType( "txt/html" );
+			else
+				editor.setContentType( page.getContentType() );
+			
 			editor.setText(page.getContent());
 			this.url = url;
 		}
