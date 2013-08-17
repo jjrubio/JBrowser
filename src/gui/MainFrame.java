@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import jbrowser.HTMLParser;
 
 /**
  *
@@ -51,6 +52,7 @@ public class MainFrame extends JFrame{
         //Left arrow
         btnLeftArrow = new JButton();
         btnLeftArrow.setIcon(new ImageIcon ("src/images/left_arrow.png"));
+        btnLeftArrow.setToolTipText("Click to go back");
         btnLeftArrow.setPreferredSize(new Dimension(50,30));
         btnLeftArrow.setContentAreaFilled(false);
         btnLeftArrow.setBorderPainted(false);
@@ -76,6 +78,7 @@ public class MainFrame extends JFrame{
         //Right arrow
         btnRightArrow = new JButton(); 
         btnRightArrow.setIcon(new ImageIcon ("src/images/right_arrow.png"));
+        btnRightArrow.setToolTipText("Click to go forward");
         btnRightArrow.setPreferredSize(new Dimension(50,30));
         btnRightArrow.setContentAreaFilled(false);
         btnRightArrow.setBorderPainted(false);
@@ -115,13 +118,16 @@ public class MainFrame extends JFrame{
                                 }else{
                                     btnLeftArrow.setEnabled(false);
                                 }
-                                   
+                                
+                                HTMLParser parser = new HTMLParser(txtUrl.getText());
+                                tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
 			}
 		});
        
         //Refresh page
         btnRefreshPage = new JButton(); 
         btnRefreshPage.setIcon(new ImageIcon ("src/images/refresh.png"));
+        btnRefreshPage.setToolTipText("Reload this page");
         btnRefreshPage.setContentAreaFilled(false);
         btnRefreshPage.setBorderPainted(false);
         btnRefreshPage.setFocusPainted(false);
@@ -138,7 +144,7 @@ public class MainFrame extends JFrame{
         //Home page
         btnHomePage = new JButton(); 
         btnHomePage.setIcon(new ImageIcon ("src/images/home.png"));
-        btnHomePage.setToolTipText("Página de inicio de JBrowser");
+        btnHomePage.setToolTipText("Open the home page");
         btnHomePage.setContentAreaFilled(false);
         btnHomePage.setBorderPainted(false);
         btnHomePage.setFocusPainted(false);
@@ -149,6 +155,8 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
                                 txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
+                                HTMLParser parser = new HTMLParser(txtUrl.getText());
+                                tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
                         }
 		});
         
