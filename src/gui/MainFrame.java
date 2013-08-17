@@ -16,9 +16,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JViewport;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -57,13 +55,21 @@ public class MainFrame extends JFrame{
         btnLeftArrow.setContentAreaFilled(false);
         btnLeftArrow.setBorderPainted(false);
         btnLeftArrow.setFocusPainted(false);
-        btnLeftArrow.setEnabled(true);
+        btnLeftArrow.setEnabled(false);
         btnLeftArrow.addMouseListener(new BorderButton());
 		btnLeftArrow.addActionListener( new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
+                                
+                                System.out.println("C:"+currentPage+"S");
+                                
 				( (PageView)tabs.getSelectedComponent() ).back();
+                                btnRightArrow.setEnabled(true);
+                                
+                                if(currentPage == 1)
+                                    btnLeftArrow.setEnabled(false);
 			}
 		});
         
@@ -74,13 +80,21 @@ public class MainFrame extends JFrame{
         btnRightArrow.setContentAreaFilled(false);
         btnRightArrow.setBorderPainted(false);
         btnRightArrow.setFocusPainted(false);
-        btnRightArrow.setEnabled(true);
+        btnRightArrow.setEnabled(false);
         btnRightArrow.addMouseListener(new BorderButton());
 		btnRightArrow.addActionListener( new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				( (PageView)tabs.getSelectedComponent() ).forward();
+                                int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
+                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
+				
+                                ( (PageView)tabs.getSelectedComponent() ).forward();
+                                btnLeftArrow.setEnabled(true);
+                                System.out.println("C:"+currentPage+"S"+historySize);
+                                if((currentPage + 2) == historySize){
+                                    btnRightArrow.setEnabled(false);
+                                }
 			}
 		});
         
@@ -93,7 +107,15 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
-//                                ( (PageView)tabs.getSelectedComponent() ).;
+                                int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
+                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
+                                
+                                if( currentPage > 0 ){
+                                    btnLeftArrow.setEnabled(true);
+                                }else{
+                                    btnLeftArrow.setEnabled(false);
+                                }
+                                   
 			}
 		});
        
@@ -108,6 +130,7 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+                            if(((PageView)tabs.getSelectedComponent()).getHistorySize() > 0)
 				( (PageView)tabs.getSelectedComponent() ).reload();
 			}
 		});
@@ -218,78 +241,15 @@ public class MainFrame extends JFrame{
         }
     }
     
-    
-    //----Getters and Setters
-    public JPanel getPanelHeader() {
-        return panelHeader;
-    }
+    //Getters and Setters
 
-    public void setPanelHeader(JPanel panelHeader) {
-        this.panelHeader = panelHeader;
-    }
-
-    public JPanel getPanelContent() {
-        return panelContent;
-    }
-
-    public void setPanelContent(JPanel panelContent) {
-        this.panelContent = panelContent;
-    }
-
-    public JPanel getPanelFooter() {
-        return panelFooter;
-    }
-
-    public void setPanelFooter(JPanel panelFooter) {
-        this.panelFooter = panelFooter;
-    }
-
+    //Getters and Setters
     public JButton getBtnLeftArrow() {
         return btnLeftArrow;
-    }
-
-    public void setBtnLeftArrow(JButton btnLeftArrow) {
-        this.btnLeftArrow = btnLeftArrow;
     }
 
     public JButton getBtnRightArrow() {
         return btnRightArrow;
     }
-
-    public void setBtnRightArrow(JButton btnRightArrow) {
-        this.btnRightArrow = btnRightArrow;
-    }
-
-    public JButton getBtnRefreshPage() {
-        return btnRefreshPage;
-    }
-
-    public void setBtnRefreshPage(JButton btnRefreshPage) {
-        this.btnRefreshPage = btnRefreshPage;
-    }
-
-    public JButton getBtnHomePage() {
-        return btnHomePage;
-    }
-
-    public void setBtnHomePage(JButton btnHomePage) {
-        this.btnHomePage = btnHomePage;
-    }
-
-    public JButton getBtnSetting() {
-        return btnSetting;
-    }
-
-    public void setBtnSetting(JButton btnSetting) {
-        this.btnSetting = btnSetting;
-    }
-
-    public JTextField getTxtUrl() {
-        return txtUrl;
-    }
-
-    public void setTxtUrl(JTextField txtUrl) {
-        this.txtUrl = txtUrl;
-    }
-
+    
 }
