@@ -66,15 +66,24 @@ public class Page {
 		*/
 		
 		if ( http.request() ){
+			int statusHttp = http.getStatus(); 
 			System.out.println("" + http.getStatus());
-			//if ( http.getStatus() >= 200 && http.getStatus() <= 208 )
+			
+			if ( statusHttp >= 200 && statusHttp <= 208 )
 				content = http.getContent();
+			else if( statusHttp >= 300 && statusHttp <= 307 )
+				go( http.getHeader( "Location" ) );
+			
 		} else {
 			return false;
 		}
 		
 		return true;
 	} 
+	
+	public String getContentType(){
+		return http.getHeader( "Content-Type" );
+	}
 	
 	public boolean back() {
 		// Set url - history 

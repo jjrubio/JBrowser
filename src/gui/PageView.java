@@ -21,7 +21,7 @@ public class PageView extends JScrollPane {
 		
 		editor = new JEditorPane();
 		editor.setEditable(false);
-                editor.setContentType("text/html;charset=UTF-8");	
+                editor.setContentType( page.getContentType() );	
 		setViewportView(editor);
 		
 		setAutoscrolls(true);
