@@ -56,6 +56,7 @@ public class TabPanel extends JTabbedPane{
 
         ButtonTabComponent btnTab = new ButtonTabComponent("New Tab", this);
         setTabComponentAt(index, btnTab);
+        setSelectedIndex(index);
     }
 
     public JButton getNewTab() {

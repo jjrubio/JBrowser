@@ -147,7 +147,9 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");			}
+				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
+                                txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
+                        }
 		});
         
         //Settings
