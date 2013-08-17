@@ -22,7 +22,7 @@ import javax.swing.event.ChangeListener;
 import jbrowser.HTMLParser;
 
 /**
- *
+ * Creates the main structure of browser
  * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
  */
 public class MainFrame extends JFrame{
@@ -34,6 +34,9 @@ public class MainFrame extends JFrame{
     private JLabel lblStatusTitle, lblStatusValue;
     
     //Constructor
+    /**
+     * Creates an object Maiframe contains all panels of the JBrowser
+     */
     public MainFrame(){
     
         //----Title Bar
@@ -234,6 +237,9 @@ public class MainFrame extends JFrame{
     
     
     //----BorderButton action
+    /**
+     * Class that implements the MouseAdapter button edge.
+     */
     class BorderButton extends MouseAdapter{
         
 	public void mouseEntered(MouseEvent evt) {
@@ -252,12 +258,19 @@ public class MainFrame extends JFrame{
     }
     
     //Getters and Setters
-
-    //Getters and Setters
+    
+    /**
+     * Get right button to go forward
+     * @return
+     */
     public JButton getBtnLeftArrow() {
         return btnLeftArrow;
     }
 
+    /**
+     * Get left button to go back
+     * @return
+     */
     public JButton getBtnRightArrow() {
         return btnRightArrow;
     }

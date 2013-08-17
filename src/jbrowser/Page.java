@@ -14,38 +14,74 @@ public class Page {
 	private String url;
 	private String content;
 	
-	public Page() {
+	/**
+     *
+     */
+    public Page() {
 	}
 	
-	public void setUrl( String url ) {
+	/**
+     *
+     * @param url
+     */
+    public void setUrl( String url ) {
 		this.url = url;
 	}
 	
-	public  String getUrl() {
+	/**
+     *
+     * @return
+     */
+    public  String getUrl() {
 		return url;
 	}
 
-	public String getContent() {
+	/**
+     *
+     * @return
+     */
+    public String getContent() {
 		return content;
 	}
 	
-	public  int getCurrentPage() {
+	/**
+     *
+     * @return
+     */
+    public  int getCurrentPage() {
 		return currentPage;
 	}
 	
-	public int getHistorySize(){
+	/**
+     *
+     * @return
+     */
+    public int getHistorySize(){
 		return history.size();
 	}
 
-        public Http getHttp() {
+        /**
+     *
+     * @return
+     */
+    public Http getHttp() {
             return http;
         }
 
-        public void setHttp(Http http) {
+        /**
+     *
+     * @param http
+     */
+    public void setHttp(Http http) {
             this.http = http;
         }
 	
-	public boolean go( String url ) {
+	/**
+     *
+     * @param url
+     * @return
+     */
+    public boolean go( String url ) {
 		//If the url is correct add to history 
 		if( load(url) ){
 			history.add(url);
@@ -81,11 +117,19 @@ public class Page {
 		return true;
 	} 
 	
-	public String getContentType(){
+	/**
+     *
+     * @return
+     */
+    public String getContentType(){
 		return http.getHeader( "Content-Type" );
 	}
 	
-	public boolean back() {
+	/**
+     *
+     * @return
+     */
+    public boolean back() {
 		// Set url - history 
 		currentPage = getCurrentPage() - 1;
 		load( history.get( currentPage ) );
@@ -93,14 +137,22 @@ public class Page {
 		return true;
 	}
 	
-	public boolean forward() {
+	/**
+     *
+     * @return
+     */
+    public boolean forward() {
 		currentPage = getCurrentPage() + 1;
 		load( history.get( currentPage ) );
 		
 		return true;
 	}
 
-	public boolean reload() {
+	/**
+     *
+     * @return
+     */
+    public boolean reload() {
 		load( history.get(currentPage) );
 		
 		return true;

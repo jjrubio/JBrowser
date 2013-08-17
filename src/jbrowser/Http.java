@@ -45,6 +45,10 @@ public class Http {
         uri = url.split("://")[1].split("/", 2)[1];
    }
     
+    /**
+     *
+     * @return
+     */
     public boolean request() {
         
         try {
@@ -120,6 +124,10 @@ public class Http {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getErrorMsg() {
         return errorMsg;
     }
@@ -133,14 +141,27 @@ public class Http {
                 "\r\n";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @param header
+     * @return
+     */
     public String getHeader(String header) {
 	return headers.get(header);
     }

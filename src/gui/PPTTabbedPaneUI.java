@@ -53,12 +53,20 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 	//  Custom installation methods
 	// ------------------------------------------------------------------------------------------------------------------
 
-	public static ComponentUI createUI(JComponent c)
+	/**
+     *
+     * @param c
+     * @return
+     */
+    public static ComponentUI createUI(JComponent c)
 	{
 		return new PPTTabbedPaneUI();
 	}
 
-	protected void installDefaults()
+	/**
+     *
+     */
+    protected void installDefaults()
 	{
 		super.installDefaults();
 		tabAreaInsets.left = (calculateTabHeight(0, 0, tabPane.getFont().getSize()) / 4) + 1;
@@ -75,17 +83,34 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 	//  Custom sizing methods
 	// ------------------------------------------------------------------------------------------------------------------
 
-	public int getTabRunCount(JTabbedPane pane)
+	/**
+     *
+     * @param pane
+     * @return
+     */
+    public int getTabRunCount(JTabbedPane pane)
 	{
 		return 1;
 	}
 
-	protected Insets getContentBorderInsets(int tabPlacement)
+	/**
+     *
+     * @param tabPlacement
+     * @return
+     */
+    protected Insets getContentBorderInsets(int tabPlacement)
 	{
 		return TAB_INSETS;
 	}
 
-	protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight)
+	/**
+     *
+     * @param tabPlacement
+     * @param tabIndex
+     * @param fontHeight
+     * @return
+     */
+    protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight)
 	{
 		int vHeight = fontHeight + 10;
 		if (vHeight % 2 == 0)
@@ -95,7 +120,14 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 		return vHeight;
 	}
 
-	protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics)
+	/**
+     *
+     * @param tabPlacement
+     * @param tabIndex
+     * @param metrics
+     * @return
+     */
+    protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics)
 	{
 		return super.calculateTabWidth(tabPlacement, tabIndex, metrics) + metrics.getHeight();
 	}
@@ -109,7 +141,18 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 	//  Methods that we want to suppress the behaviour of the superclass
 	// ------------------------------------------------------------------------------------------------------------------
 
-	protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param tabIndex
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     * @param isSelected
+     */
+    protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected)
 	{
 		Polygon shape = new Polygon();
 
@@ -147,7 +190,17 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 		g.drawLine(x + w - (h / 4), y, x + w + (h / 4), y + h);
 	}
 
-	protected void paintContentBorderTopEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param selectedIndex
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    protected void paintContentBorderTopEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
 	{
 		Rectangle selectedRect = selectedIndex < 0 ? null : getTabBounds(selectedIndex, calcRect);
 		g.setColor(darkShadow);
@@ -158,27 +211,78 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 
 	}
 
-	protected void paintContentBorderRightEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param selectedIndex
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    protected void paintContentBorderRightEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
 	{
 
 	}
 
-	protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param selectedIndex
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
 	{
 
 	}
 
-	protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param selectedIndex
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h)
 	{
 
 	}
 
-	protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex, Rectangle iconRect, Rectangle textRect, boolean isSelected)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param rects
+     * @param tabIndex
+     * @param iconRect
+     * @param textRect
+     * @param isSelected
+     */
+    protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex, Rectangle iconRect, Rectangle textRect, boolean isSelected)
 	{
 		// Do nothing
 	}
 
-	protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected)
+	/**
+     *
+     * @param g
+     * @param tabPlacement
+     * @param font
+     * @param metrics
+     * @param tabIndex
+     * @param title
+     * @param textRect
+     * @param isSelected
+     */
+    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected)
 	{
 		if (isSelected)
 		{
@@ -192,7 +296,14 @@ public class PPTTabbedPaneUI extends BasicTabbedPaneUI
 		}
 	}
 
-	protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected)
+	/**
+     *
+     * @param tabPlacement
+     * @param tabIndex
+     * @param isSelected
+     * @return
+     */
+    protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected)
 	{
 		return 0;
 	}

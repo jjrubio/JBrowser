@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 /**
- *
+ * Creates a strcuture contains all tabs of the browser
  * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
  */
 public class TabPanel extends JTabbedPane{
@@ -46,6 +46,7 @@ public class TabPanel extends JTabbedPane{
      *
      * @author Ramón Carrillo <racarrillo91@gmail.com>
      * @author Sanny Florencia <sbflorenc@gmail.com>
+     * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
      */
     private void addNewTab() {
         PageView page = new PageView();
@@ -59,10 +60,18 @@ public class TabPanel extends JTabbedPane{
         setSelectedIndex(index);
     }
 
+    /**
+     *
+     * @return
+     */
     public JButton getNewTab() {
         return newTab;
     }
 
+    /**
+     *
+     * @param newTab
+     */
     public void setNewTab(JButton newTab) {
         this.newTab = newTab;
     }

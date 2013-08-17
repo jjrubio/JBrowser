@@ -16,7 +16,10 @@ public class PageView extends JScrollPane {
 	private JEditorPane editor;
 	private String url;
 	
-	public PageView() {
+	/**
+     *
+     */
+    public PageView() {
 		page = new Page();
 		
 		editor = new JEditorPane();
@@ -37,7 +40,11 @@ public class PageView extends JScrollPane {
 		});
 	}
 	
-	public void go(String url) {
+	/**
+     *
+     * @param url
+     */
+    public void go(String url) {
 		if (page.go(url)) {
 			if( page.getContentType() == null)
 				editor.setContentType( "txt/html" );
@@ -49,33 +56,57 @@ public class PageView extends JScrollPane {
 		}
 	}
 	
-	public void reload() {
+	/**
+     *
+     */
+    public void reload() {
 		page.reload();
 	}
 	
-	public void stop(){
+	/**
+     *
+     */
+    public void stop(){
 		// TODO
 	}
 	
-	public void back() {
+	/**
+     *
+     */
+    public void back() {
 		if ( page.back() )
 			editor.setText(page.getContent());
 	}
 	
-	public void forward() {
+	/**
+     *
+     */
+    public void forward() {
 		if ( page.forward() )
 			editor.setText(page.getContent());
 	}
      
-	public String getUrl() {
+	/**
+     *
+     * @return
+     */
+    public String getUrl() {
 		return url;
 	}
 	
-	public int getHistorySize(){
+	/**
+     *
+     * @return
+     */
+    public int getHistorySize(){
 		return page.getHistorySize();
 	}
 	
-	public int getCurrentPage(){
+	/**
+     *
+     * @return
+     */
+    public int getCurrentPage(){
 		return page.getCurrentPage();
 	}
 }

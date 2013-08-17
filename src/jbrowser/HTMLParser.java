@@ -8,13 +8,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
- *
+ * Parser code HTML in JAVA
  * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
  */
 public class HTMLParser {
     
     Document doc;
     
+    /**
+     * Creates an object Document
+     * @param url String Url address to parser
+     */
     public HTMLParser(String url){
         try {
             doc = Jsoup.connect(url).get();
@@ -23,7 +27,10 @@ public class HTMLParser {
         }
     }
     
-    //Title
+    /**
+     * Get the title of a website
+     * @return String website title
+     */
     public String getTitle(){
         String title = doc.title();
         

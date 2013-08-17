@@ -3,7 +3,7 @@ package jbrowser;
 import gui.MainFrame;
 
 /**
- *
+ * Main the application
  * @author Ramón Carrillo <racarrillo91@gmail.com>
  */
 public class JBrowser {

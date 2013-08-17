@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.event.ChangeListener;
 
 /**
  * Component to be used as as tabComponent;
@@ -16,6 +15,11 @@ public class ButtonTabComponent extends JPanel {
     private final JLabel label;
     private final JButton button = new TabButton();
 
+    /**
+     *
+     * @param title
+     * @param pane
+     */
     public ButtonTabComponent(String title, JTabbedPane pane) {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
