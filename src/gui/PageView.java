@@ -9,6 +9,7 @@ import jbrowser.Page;
 /**
  *
  * @author Sanny Florencia <sbflorenc@gmail.com>
+ * @author Ramón Carrillo <racarrillo91@gmail.com>
  */
 public class PageView extends JScrollPane {
 	
@@ -18,7 +19,7 @@ public class PageView extends JScrollPane {
 	private PageListener pageListener;
 	
 	/**
-     * 
+     * Class constructor.
      */
     public PageView() {
 		page = new Page();
@@ -42,7 +43,7 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     * Go to the url
+     * Go to the url indicated in the param.
      * @param url
      */
     public void go(String url) {
@@ -122,6 +123,10 @@ public class PageView extends JScrollPane {
 		return page.getStatus();
 	}
 
+	/**
+	 * Add listener to page
+	 * @param pageListener
+	 */
 	public void addPageListener(PageListener pageListener) {
 		this.pageListener = pageListener;
 	}
