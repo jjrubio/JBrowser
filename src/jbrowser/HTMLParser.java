@@ -29,7 +29,7 @@ public class HTMLParser {
     
     /**
      * Get the title of a website
-     * @return String website title
+     * @return String title
      */
     public String getTitle(){
         String title = doc.title();

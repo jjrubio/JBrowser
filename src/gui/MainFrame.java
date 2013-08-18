@@ -36,7 +36,7 @@ public class MainFrame extends JFrame{
     
     //Constructor
     /**
-     * Creates an object Maiframe contains all panels of the JBrowser
+     * Creates an object Mainframe contains all panels of the JBrowser
      */
     public MainFrame(){
     
@@ -162,7 +162,7 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
                                 txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
-								lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
+				lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 HTMLParser parser = new HTMLParser(txtUrl.getText());
                                 tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
                         }
@@ -201,14 +201,28 @@ public class MainFrame extends JFrame{
 			public void stateChanged(ChangeEvent ce) {
 				PageView page = (PageView) tabs.getSelectedComponent();
                                 
+                                //Set Url and close window
                                 if(tabs.getSelectedIndex() != (tabs.getTabCount()-1)){
-                                    txtUrl.setText(page.getUrl());
+                                    txtUrl.setText(page.getUrl());  
                                 }
                                 
                                 if(tabs.getTabCount() == 1){
                                     System.exit(0);
                                 }
                                 
+                                //Set enabled buttons
+                                if(page.getCurrentPage() > 0){
+                                    btnLeftArrow.setEnabled(true);
+                                }else{
+                                    btnLeftArrow.setEnabled(false);
+                                }
+                                
+                                if(page.getCurrentPage() < (page.getHistorySize()-1)){
+                                    btnRightArrow.setEnabled(true);
+                                }else{
+                                    btnRightArrow.setEnabled(false);
+                                }  
+            
 			}
 		} );
 		
@@ -273,7 +287,7 @@ public class MainFrame extends JFrame{
     
     /**
      * Get right button to go forward
-     * @return
+     * @return JButton btnLeftArrow
      */
     public JButton getBtnLeftArrow() {
         return btnLeftArrow;
@@ -281,7 +295,7 @@ public class MainFrame extends JFrame{
 
     /**
      * Get left button to go back
-     * @return
+     * @return JButton btnRightArrow
      */
     public JButton getBtnRightArrow() {
         return btnRightArrow;

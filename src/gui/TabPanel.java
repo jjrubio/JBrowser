@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 /**
- * Creates a strcuture contains all tabs of the browser
+ * Creates a structure contains all tabs of the browser
  * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
  */
 public class TabPanel extends JTabbedPane{
@@ -58,22 +58,6 @@ public class TabPanel extends JTabbedPane{
         ButtonTabComponent btnTab = new ButtonTabComponent("New Tab", this);
         setTabComponentAt(index, btnTab);
         setSelectedIndex(index);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public JButton getNewTab() {
-        return newTab;
-    }
-
-    /**
-     *
-     * @param newTab
-     */
-    public void setNewTab(JButton newTab) {
-        this.newTab = newTab;
     }
 
 }
