@@ -46,8 +46,9 @@ public class Http {
    }
     
     /**
+     * Make an HTTP request through a socket.
      *
-     * @return
+     * @return true if the request was successful, false otherwise
      */
     public boolean request() {
         
@@ -125,13 +126,19 @@ public class Http {
     }
 
     /**
+     * If the HTTP was unsuccessful, then this error message describe the error 
      *
-     * @return
+     * @return Message
      */
     public String getErrorMsg() {
         return errorMsg;
     }
     
+    /**
+     * Build the HTTP request to send.
+     *
+     * @return HTTP request
+     */
     private String httpRequest() {
         return method + " /" + uri + " HTTP/1.1\r\n" +
                 "Host: " + host + "\r\n" +
@@ -142,30 +149,41 @@ public class Http {
     }
 
     /**
+     * The body of the HTTP response
      *
-     * @return
+     * @return body
      */
     public String getContent() {
         return content;
     }
 
     /**
+     * The status of the HTTP response
      *
-     * @return
+     * @return status
      */
     public int getStatus() {
         return status;
     }
 
     /**
+     * Query the value of one header of the HTTP response
      *
-     * @param header
-     * @return
+     * @param header name
+     * @return header value
      */
     public String getHeader(String header) {
 	return headers.get(header);
     }
 
+    /**
+     * Make additional operations with certain headers.
+     *
+     * For now, the only header being processed is "Set-Cookie"
+     *
+     * @param header name
+     * @param header value
+     */
     private void processHeader(String header, String value) {
 
         if (header.equals("Set-Cookie")) {
@@ -180,6 +198,11 @@ public class Http {
         }
     }
 
+    /**
+     * Build the cookies part of the HTTP request
+     *
+     * @return cookies part of the HTTP request
+     */
     private String cookies() {
         String cookiesToSend = "";
 
@@ -204,6 +227,9 @@ public class Http {
         return cookiesToSend;
     }
 
+    /**
+     * Save the cookies received in HTTP response in a file
+     */
     private void saveCookies() {
         File cookiesDir = new File("cookies");
 
@@ -224,6 +250,9 @@ public class Http {
         }
     }
 
+    /**
+     * Load any previous cookies saved in the cookies file.
+     */
     private void loadCookies() {
 	cookies = new LinkedHashMap<String, String>();
         FileReader f = null;
