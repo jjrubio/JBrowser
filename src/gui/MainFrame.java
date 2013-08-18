@@ -115,7 +115,7 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
-		        lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
+		                lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
                                 int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
                                 
@@ -125,6 +125,8 @@ public class MainFrame extends JFrame{
                                     btnLeftArrow.setEnabled(false);
                                 }
                                 
+                                if(( (PageView)tabs.getSelectedComponent() ).getHistorySize() > 0)
+                                    btnRefreshPage.setEnabled(true);
                                 HTMLParser parser = new HTMLParser(txtUrl.getText());
                                 tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
 			}
@@ -137,6 +139,7 @@ public class MainFrame extends JFrame{
         btnRefreshPage.setContentAreaFilled(false);
         btnRefreshPage.setBorderPainted(false);
         btnRefreshPage.setFocusPainted(false);
+        btnRefreshPage.setEnabled(false);
         btnRefreshPage.addMouseListener(new BorderButton());
         btnRefreshPage.addActionListener( new ActionListener() {
 
@@ -163,6 +166,7 @@ public class MainFrame extends JFrame{
 				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
                                 txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
 				lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
+                                btnRefreshPage.setEnabled(true);
                                 HTMLParser parser = new HTMLParser(txtUrl.getText());
                                 tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
                         }
@@ -222,6 +226,12 @@ public class MainFrame extends JFrame{
                                 }else{
                                     btnRightArrow.setEnabled(false);
                                 }  
+                                
+                                if(page.getHistorySize() == 0){
+                                    btnRefreshPage.setEnabled(false);
+                                }else{
+                                    btnRefreshPage.setEnabled(true);
+                                }
             
 			}
 		} );
