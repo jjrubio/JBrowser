@@ -30,7 +30,7 @@ public class Page {
 	
 	/**
      * Get the url to the page.
-     * @return
+     * @return url
      */
     public  String getUrl() {
 		return url;

@@ -33,6 +33,7 @@ public class MainFrame extends JFrame{
     private JTextField txtUrl;
     private TabPanel tabs;
     private JLabel lblStatusTitle, lblStatusValue;
+	private PageView page;
     
     //Constructor
     /**
@@ -46,7 +47,6 @@ public class MainFrame extends JFrame{
         ImageIcon imgIcon = new ImageIcon ("src/images/browser_icon.png");
         setIconImage(imgIcon.getImage());
 
-        
         //----Header
         //Main panel      
         panelHeader = new JPanel();
@@ -67,15 +67,14 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
-                                
-                                System.out.println("C:"+currentPage+"S");
-                                
-				( (PageView)tabs.getSelectedComponent() ).back();
-                                btnRightArrow.setEnabled(true);
-                                lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
-                                if(currentPage == 1)
-                                    btnLeftArrow.setEnabled(false);
+				page = (PageView)tabs.getSelectedComponent();
+				int currentPage = page.getCurrentPage();
+				
+				page.back();
+				btnRightArrow.setEnabled(true);
+				lblStatusValue.setText( "" + page.getStatus() );
+				if(currentPage == 1)
+					btnLeftArrow.setEnabled(false);
 			}
 		});
         
@@ -93,16 +92,17 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-                                int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
-                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
+				page = (PageView)tabs.getSelectedComponent();
+				int historySize = page.getHistorySize();
+				int currentPage = page.getCurrentPage();
+				page.forward();
 				
-                                ( (PageView)tabs.getSelectedComponent() ).forward();
-                                btnLeftArrow.setEnabled(true);
-								lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
-                                System.out.println("C:"+currentPage+"S"+historySize);
-                                if((currentPage + 2) == historySize){
-                                    btnRightArrow.setEnabled(false);
-                                }
+				btnLeftArrow.setEnabled(true);
+				lblStatusValue.setText( "" + page.getStatus() );
+				
+				if((currentPage + 2) == historySize){
+					btnRightArrow.setEnabled(false);
+				}
 			}
 		});
         
@@ -114,21 +114,28 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
-		                lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
-                                int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
-                                int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
-                                
-                                if( currentPage > 0 ){
-                                    btnLeftArrow.setEnabled(true);
-                                }else{
-                                    btnLeftArrow.setEnabled(false);
-                                }
-                                
-                                if(( (PageView)tabs.getSelectedComponent() ).getHistorySize() > 0)
-                                    btnRefreshPage.setEnabled(true);
-                                HTMLParser parser = new HTMLParser(txtUrl.getText());
-                                tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
+				page = (PageView)tabs.getSelectedComponent();
+				page.go( txtUrl.getText() );
+				lblStatusValue.setText( "" + page.getStatus() );
+				int historySize = page.getHistorySize();
+				int currentPage = page.getCurrentPage();
+				
+				if( currentPage > 0 ){
+					btnLeftArrow.setEnabled(true);
+				}else{
+					btnLeftArrow.setEnabled(false);
+				}
+				if( currentPage == ( historySize - 1 ) ){
+					btnRightArrow.setEnabled(false);
+				}else{
+					btnRightArrow.setEnabled(true);
+				}
+				
+				if( page.getHistorySize() > 0)
+					btnRefreshPage.setEnabled(true);
+				
+				HTMLParser parser = new HTMLParser(txtUrl.getText());
+				tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
 			}
 		});
        
@@ -145,9 +152,10 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-                            if(((PageView)tabs.getSelectedComponent()).getHistorySize() > 0)
-				( (PageView)tabs.getSelectedComponent() ).reload();
-				lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );			
+				page = (PageView)tabs.getSelectedComponent();
+				if( page.getHistorySize() > 0)
+					page.reload();
+				lblStatusValue.setText("" + page.getStatus() );			
 			}
 		});
 		
@@ -163,16 +171,32 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
-                                txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
-				lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
-                                btnRefreshPage.setEnabled(true);
-                                HTMLParser parser = new HTMLParser(txtUrl.getText());
-                                tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
-                        }
+				page = (PageView)tabs.getSelectedComponent();
+				page.go("http://www.cs.bham.ac.uk/~tpc/testpages/");
+				txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
+				lblStatusValue.setText("" + page.getStatus() );
+				btnRefreshPage.setEnabled(true);
+				
+				int historySize = page.getHistorySize();
+				int currentPage = page.getCurrentPage();
+				
+				if( currentPage > 0 ){
+					btnLeftArrow.setEnabled(true);
+				}else{
+					btnLeftArrow.setEnabled(false);
+				}
+				if( currentPage == ( historySize - 1 ) ){
+					btnRightArrow.setEnabled(false);
+				}else{
+					btnRightArrow.setEnabled(true);
+				}
+				
+				HTMLParser parser = new HTMLParser(txtUrl.getText());
+				tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
+			}
 		});
         
-        //Settings
+       /* //Settings
         btnSetting = new JButton(); 
         btnSetting.setLayout( new FlowLayout(FlowLayout.RIGHT));
         btnSetting.setIcon(new ImageIcon ("src/images/settings.png"));
@@ -180,14 +204,15 @@ public class MainFrame extends JFrame{
         btnSetting.setBorderPainted(false);
         btnSetting.setFocusPainted(false);
         btnSetting.addMouseListener(new BorderButton());
-        
+        */
+		
         //Adds components
         panelHeader.add(btnLeftArrow);
         panelHeader.add(btnRightArrow);
         panelHeader.add(txtUrl);
         panelHeader.add(btnRefreshPage);
         panelHeader.add(btnHomePage);
-        panelHeader.add(btnSetting);
+        //panelHeader.add(btnSetting);
         add(panelHeader, BorderLayout.NORTH);
         
         
@@ -203,35 +228,35 @@ public class MainFrame extends JFrame{
 
 			@Override
 			public void stateChanged(ChangeEvent ce) {
-				PageView page = (PageView) tabs.getSelectedComponent();
-                                
-                                //Set Url and close window
-                                if(tabs.getSelectedIndex() != (tabs.getTabCount()-1)){
-                                    txtUrl.setText(page.getUrl());  
-                                }
-                                
-                                if(tabs.getTabCount() == 1){
-                                    System.exit(0);
-                                }
-                                
-                                //Set enabled buttons
-                                if(page.getCurrentPage() > 0){
-                                    btnLeftArrow.setEnabled(true);
-                                }else{
-                                    btnLeftArrow.setEnabled(false);
-                                }
-                                
-                                if(page.getCurrentPage() < (page.getHistorySize()-1)){
-                                    btnRightArrow.setEnabled(true);
-                                }else{
-                                    btnRightArrow.setEnabled(false);
-                                }  
-                                
-                                if(page.getHistorySize() == 0){
-                                    btnRefreshPage.setEnabled(false);
-                                }else{
-                                    btnRefreshPage.setEnabled(true);
-                                }
+				page = (PageView) tabs.getSelectedComponent();
+				
+				//Set Url and close window
+				if(tabs.getSelectedIndex() != (tabs.getTabCount()-1)){
+					txtUrl.setText(page.getUrl());
+				}
+				
+				if(tabs.getTabCount() == 1){
+					System.exit(0);
+				}
+				
+				//Set enabled buttons
+				if(page.getCurrentPage() > 0){
+					btnLeftArrow.setEnabled(true);
+				}else{
+					btnLeftArrow.setEnabled(false);
+				}
+				
+				if(page.getCurrentPage() < (page.getHistorySize()-1)){
+					btnRightArrow.setEnabled(true);
+				}else{
+					btnRightArrow.setEnabled(false);
+				}
+				
+				if(page.getHistorySize() == 0){
+					btnRefreshPage.setEnabled(false);
+				}else{
+					btnRefreshPage.setEnabled(true);
+				}
             
 			}
 		} );
@@ -268,16 +293,13 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
-   
-    
-    
-    
     //----BorderButton action
     /**
      * Class that implements the MouseAdapter button edge.
      */
     class BorderButton extends MouseAdapter{
         
+	@Override
 	public void mouseEntered(MouseEvent evt) {
             JButton btn = (JButton) evt.getSource();
             if(btn.isEnabled()){
@@ -285,6 +307,7 @@ public class MainFrame extends JFrame{
             }  
         }
 
+	@Override
         public void mouseExited(MouseEvent evt) {
             JButton btn = (JButton) evt.getSource();
             if(btn.isEnabled()){
