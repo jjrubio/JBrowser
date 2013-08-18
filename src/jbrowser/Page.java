@@ -15,13 +15,13 @@ public class Page {
 	private String content;
 	
 	/**
-     *
+     * Class constructor.
      */
     public Page() {
 	}
 	
 	/**
-     *
+     * Get the url to the page.
      * @param url
      */
     public void setUrl( String url ) {
@@ -29,7 +29,7 @@ public class Page {
 	}
 	
 	/**
-     *
+     * Get the url to the page.
      * @return
      */
     public  String getUrl() {
@@ -37,7 +37,7 @@ public class Page {
 	}
 
 	/**
-     *
+     * Get the content to the page.
      * @return
      */
     public String getContent() {
@@ -45,7 +45,7 @@ public class Page {
 	}
 	
 	/**
-     *
+     * Get the current page.
      * @return
      */
     public  int getCurrentPage() {
@@ -53,36 +53,19 @@ public class Page {
 	}
 	
 	/**
-     *
+     * Get the size of the history
      * @return
      */
     public int getHistorySize(){
 		return history.size();
 	}
-
-        /**
-     *
-     * @return
-     */
-    public Http getHttp() {
-            return http;
-        }
-
-        /**
-     *
-     * @param http
-     */
-    public void setHttp(Http http) {
-            this.http = http;
-        }
 	
 	/**
-     *
+     * go to the page indicated in the url if its ok add url to history.
      * @param url
      * @return
      */
     public boolean go( String url ) {
-		//If the url is correct add to history 
 		if( load(url) ){
 			history.add(url);
 			currentPage = history.size() - 1;
@@ -93,13 +76,16 @@ public class Page {
 		return false;
 	}
 	
+	/**
+	 * Call function to create socket connection request()
+	 * if it returns - http status 200 - call getContent function
+	 * @param url
+	 * @return 
+	 */
 	private boolean load(String url) {
 		http = new Http(url);
 		
-		/* Call function to create socket connection request()
-		*	if it returns - http status 200 - call getContent function
-		*	else show an error message
-		*/
+		
 		
 		if ( http.request() ){
 			int statusHttp = http.getStatus(); 
@@ -118,7 +104,7 @@ public class Page {
 	} 
 	
 	/**
-     *
+     * Get content type of the page
      * @return
      */
     public String getContentType(){
@@ -126,7 +112,7 @@ public class Page {
 	}
 	
 	/**
-     *
+     * Go back to the previous page.
      * @return
      */
     public boolean back() {
@@ -138,7 +124,7 @@ public class Page {
 	}
 	
 	/**
-     *
+     * Go forward to the next page.
      * @return
      */
     public boolean forward() {
@@ -149,13 +135,17 @@ public class Page {
 	}
 
 	/**
-     *
+     * Reload the current page.
      * @return
      */
     public boolean reload() {
 		load( history.get(currentPage) );
 		
 		return true;
+	}
+	
+	public int getStatus(){
+		return http.getStatus();
 	}
 	
 }

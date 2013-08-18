@@ -24,6 +24,7 @@ import jbrowser.HTMLParser;
 /**
  * Creates the main structure of browser
  * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
+ * @author Sanny Florencia <sbflorenc@gmail.com>
  */
 public class MainFrame extends JFrame{
     
@@ -72,7 +73,7 @@ public class MainFrame extends JFrame{
                                 
 				( (PageView)tabs.getSelectedComponent() ).back();
                                 btnRightArrow.setEnabled(true);
-                                
+                                lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 if(currentPage == 1)
                                     btnLeftArrow.setEnabled(false);
 			}
@@ -97,6 +98,7 @@ public class MainFrame extends JFrame{
 				
                                 ( (PageView)tabs.getSelectedComponent() ).forward();
                                 btnLeftArrow.setEnabled(true);
+								lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 System.out.println("C:"+currentPage+"S"+historySize);
                                 if((currentPage + 2) == historySize){
                                     btnRightArrow.setEnabled(false);
@@ -113,6 +115,7 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go( txtUrl.getText() );
+		        lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 int historySize = ((PageView)tabs.getSelectedComponent()).getHistorySize();
                                 int currentPage = ((PageView)tabs.getSelectedComponent()).getCurrentPage();
                                 
@@ -141,6 +144,7 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
                             if(((PageView)tabs.getSelectedComponent()).getHistorySize() > 0)
 				( (PageView)tabs.getSelectedComponent() ).reload();
+				lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );			
 			}
 		});
 		
@@ -158,6 +162,7 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				( (PageView)tabs.getSelectedComponent() ).go("http://www.cs.bham.ac.uk/~tpc/testpages/");
                                 txtUrl.setText("http://www.cs.bham.ac.uk/~tpc/testpages/");
+								lblStatusValue.setText("" + ( (PageView)tabs.getSelectedComponent() ).getStatus() );
                                 HTMLParser parser = new HTMLParser(txtUrl.getText());
                                 tabs.setTabComponentAt(tabs.getSelectedIndex(), new ButtonTabComponent(parser.getTitle(), tabs));
                         }

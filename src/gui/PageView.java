@@ -17,7 +17,7 @@ public class PageView extends JScrollPane {
 	private String url;
 	
 	/**
-     *
+     * 
      */
     public PageView() {
 		page = new Page();
@@ -41,13 +41,13 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Go to the url
      * @param url
      */
     public void go(String url) {
 		if (page.go(url)) {
 			if( page.getContentType() == null)
-				editor.setContentType( "txt/html" );
+				editor.setContentType( "txt/html; charset=UTF-8" );
 			else
 				editor.setContentType( page.getContentType() );
 			
@@ -57,7 +57,7 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Reload the current page.
      */
     public void reload() {
 		page.reload();
@@ -71,7 +71,7 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Go back to the previous page.
      */
     public void back() {
 		if ( page.back() )
@@ -79,7 +79,7 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Go forward to the next page.
      */
     public void forward() {
 		if ( page.forward() )
@@ -87,7 +87,7 @@ public class PageView extends JScrollPane {
 	}
      
 	/**
-     *
+     * Get the url page
      * @return
      */
     public String getUrl() {
@@ -95,7 +95,7 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Get the history size
      * @return
      */
     public int getHistorySize(){
@@ -103,10 +103,18 @@ public class PageView extends JScrollPane {
 	}
 	
 	/**
-     *
+     * Get the current page
      * @return
      */
     public int getCurrentPage(){
 		return page.getCurrentPage();
+	}
+	
+	/**
+     * Get the status page
+     * @return
+     */
+	public int getStatus(){
+		return page.getStatus();
 	}
 }
