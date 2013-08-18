@@ -200,8 +200,15 @@ public class MainFrame extends JFrame{
 			@Override
 			public void stateChanged(ChangeEvent ce) {
 				PageView page = (PageView) tabs.getSelectedComponent();
-				System.out.println(page.getUrl());
-				txtUrl.setText(page.getUrl());
+                                
+                                if(tabs.getSelectedIndex() != (tabs.getTabCount()-1)){
+                                    txtUrl.setText(page.getUrl());
+                                }
+                                
+                                if(tabs.getTabCount() == 1){
+                                    System.exit(0);
+                                }
+                                
 			}
 		} );
 		
@@ -219,7 +226,7 @@ public class MainFrame extends JFrame{
         //Page Status
         lblStatusTitle = new JLabel("Page Status: ");
         lblStatusTitle.setForeground(new Color(243,201,120));
-        lblStatusValue = new JLabel("No access");
+        lblStatusValue = new JLabel("None");
         lblStatusValue.setForeground(Color.white);
         
         
