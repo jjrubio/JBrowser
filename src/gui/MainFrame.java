@@ -223,7 +223,28 @@ public class MainFrame extends JFrame{
         panelContent.setBackground(new Color(243,201,120));
         
         //TabPanel
-        tabs = new TabPanel();
+        tabs = new TabPanel(new PageView.PageListener() {
+
+	    @Override
+	    public void pageLoaded() {
+		PageView page = (PageView) tabs.getSelectedComponent();
+		//Set enabled buttons
+		if ( page.getCurrentPage() > 0 )
+			btnLeftArrow.setEnabled(true);
+		else
+			btnLeftArrow.setEnabled(false);
+
+		if ( page.getCurrentPage() < (page.getHistorySize()-1) )
+			btnRightArrow.setEnabled(true);
+		else
+			btnRightArrow.setEnabled(false);
+
+		if( page.getHistorySize() == 0 )
+			btnRefreshPage.setEnabled(false);
+		else
+			btnRefreshPage.setEnabled(true);
+	    }
+	});
         tabs.addChangeListener( new ChangeListener() {
 
 			@Override

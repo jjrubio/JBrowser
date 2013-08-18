@@ -15,6 +15,7 @@ public class PageView extends JScrollPane {
 	private Page page;
 	private JEditorPane editor;
 	private String url;
+	private PageListener pageListener;
 	
 	/**
      * 
@@ -53,6 +54,9 @@ public class PageView extends JScrollPane {
 			
 			editor.setText(page.getContent());
 			this.url = url;
+
+			if (pageListener != null)
+			    pageListener.pageLoaded();
 		}
 	}
 	
@@ -116,5 +120,14 @@ public class PageView extends JScrollPane {
      */
 	public int getStatus(){
 		return page.getStatus();
+	}
+
+	public void addPageListener(PageListener pageListener) {
+		this.pageListener = pageListener;
+	}
+
+	interface PageListener {
+
+	    void pageLoaded();
 	}
 }

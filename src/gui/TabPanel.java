@@ -12,6 +12,7 @@ import javax.swing.JTabbedPane;
 public class TabPanel extends JTabbedPane{
 
     private JButton newTab;
+    private PageView.PageListener pageListener;
     
     /**
      * Add empty tab and "+" tab
@@ -19,7 +20,9 @@ public class TabPanel extends JTabbedPane{
      * @author Jefferson Rubio <jefferson.jrubio@gmail.com>
      * @author Ramón Carrillo <racarrillo91@gmail.com>
      */
-    public TabPanel(){
+    public TabPanel(PageView.PageListener pageListener){
+
+	this.pageListener = pageListener;
 
         setUI(new PPTTabbedPaneUI());
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -50,7 +53,8 @@ public class TabPanel extends JTabbedPane{
      */
     private void addNewTab() {
         PageView page = new PageView();
-        
+	page.addPageListener(pageListener);
+
         int index = getTabCount() - 1;
         
         insertTab("", null, page, "", index);
